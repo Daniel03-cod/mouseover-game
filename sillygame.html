@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Ronsoft game</title>
+		<link rel="stylesheet" type="text/css" href="sillygame.css">
+	</head>
+	<body>
+		<audio autoplay="onload">
+			<source src="audio/2.mp3" type="audio/mp3">
+		</audio>
+		<center>
+			<div id="logframe"><br>
+				<div id="textframe">
+					<h1 style="position: absolute; margin-left: 10px;">CLIPO</h1>
+				</div>
+				<div id="entry">
+					<label>PLAYER NAME</label><br><br>
+					<input type="text" id="playername" onkeyup="nameUpper()" required><br><br>
+					<!-- <span id="genname">GENDER</span><br><br>
+						<input type="radio" name="gender" id="gendermale" value="MALE" >MALE
+						<input type="radio" name="gender" id="genderfemale" value="FEMALE">FEMALE -->
+						<label>CITY</label><br>
+					<input type="text" id="cityname" onkeyup="cityUpper()" required>
+				</div><br>
+				<input id="launchgame" onclick="nameSubmit(); count()" type="submit" value="LAUNCH GAME">
+				<h4 style="color: #35363A;">&reg RONSOFT .CO</h4>
+			</div>
+		</center>
+
+
+		<!-- gamepage -->
+				<div id="gameframe">
+					 <div id="rightframe">
+					 	<div id="nametag">
+					 		<center>
+					 			<h3 style="color: #6600A1;">USERNAME</h3>
+					 			<input type="text" id="username" disabled>
+					 			<h3 style="color: #6600A1;">CITY</h3>
+					 			<input type="text" id="gendernameoo" disabled>
+					 		</center>
+					 	</div>
+
+					 	<div id="score">
+					 		<center>
+					 			<h4 style="color: #6600A1;">TIME LEFT</h4>
+					 			<div><input type="number" id="sec" value="60"></div>
+					 			<hr style="color: #29004C;">
+					 				<h4 style="color: #6600A1;">POINT</h4>
+					 				<div id="scoreboardframe">
+					 					<span id="scoreboard">0</span>
+					 				</div>
+					 				<button onclick="reboot()" id="reboot">RESTART</button>
+					 				<h4 style="color: #6600A1;">SOUND</h4>
+					 				<button onclick="vibe()" id="soundControl">MUTE</button>
+					 				<button onclick="vibeoff()" id="soundon">UNMUTE</button>
+
+					 			
+					 		</center>	
+					 	</div>
+					 </div>	
+					 <!-- gamescreen -->
+					 <div id="gamescreen" onmouseover="action()">
+					 	<img id="applered" src="pix/applegreen.png" style="visibility: visible;" >
+						<!-- <img id="applegreen" src="pix/applegreen.png"> -->
+							<!-- <span id="click">CLICK ME!!! &#9785;</span> -->
+					</div>
+					<h4 style="color: #35363A; margin-top: 520px; margin-left: 450px; font-family: verdana;">&reg RONSOFT .CO</h4>
+				</div>
+
+				<div id="final">
+					<center>
+						<div id="finalframe">
+							<h3 style="font-family: verdana; color: #35363A">THE PREVIOUS SESSION HAS ENDED CLICK THE BUTTON BELOW TO START NEW SESSION</h3>
+							<input type="text" name="" id="jsmessage" disabled>
+							<button onclick="reshow()" id="reboot">RESTART</button>
+							<h4 style="color: #35363A; margin-top: 120px;font-family: verdana;">&reg RONSOFT .CO</h4>
+					</div>
+					</center>
+				</div>
+
+
+
+
+		<script type="text/javascript">
+			function nameSubmit() {
+				logframe.style.display = 'none';
+				gameframe.style.display = 'block';
+				username.value = playername.value;
+				gendernameoo.value = cityname.value;
+				gameSound=new Audio();
+				gameSound.src="1.mp3";
+				gameSound.play();
+				gameSound.loop=true;
+            	}
+            function count(){
+            	seconds = sec.value;
+            	seconds--;
+            	sec.value = seconds;
+            	if(seconds > 0){
+                setTimeout(count,1000)
+                clearTimeout()
+               }else{
+               		playername.value = null;
+               		cityname.value = null;
+               		logframe.style.display = 'none';
+					gameframe.style.display = 'none';
+					final.style.display = 'block';
+					scoreboard.innerHTML = 0;
+					sec.value = 60;
+					gameSound.pause();
+					jsmessage.value = username.value  +  " YOU HAVE GAINED" +    scoreboard.value  + " POINT"
+
+               }	
+		}
+		function reboot(){
+			gameSound.pause();
+			playername.value = null;
+            cityname.value = null;
+            scoreboard.innerHTML = 0;
+			sec.value = 60;
+			seconds --;
+			setTimeout(count, 1000)
+			logframe.style.display = 'none';
+			gameframe.style.display = 'none';
+			final.style.display = 'block';
+			gameSound.pause();
+		}
+			function action(){
+			applered.style.visibility="visible";
+			var top_location = parseInt(Math.floor(Math.random() * 80) + 10) + "%";
+			var left_location = parseInt(Math.random() * 70) + "%";
+			gamescreen.style.top=top_location;
+			gamescreen.style.left=left_location;
+			p = Number(scoreboard.innerHTML);
+			p+=10;
+			scoreboard.innerHTML=p;
+		}
+		function reshow() {
+			logframe.style.display = 'block';
+			gameframe.style.display = 'none';
+			final.style.display = 'none';
+		}
+		function vibe() {
+			if (soundControl.innerHTML = "MUTE") {
+				gameSound.pause();
+			}
+		}
+		function vibeoff() {
+			if (soundon.innerHTML = "UNMUTE") {
+				gameSound.play();
+			}
+		}
+		
+		</script>
+	</body>
+</html>
